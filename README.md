@@ -82,7 +82,8 @@ python .\login.py
 ## 为bot进行相关配置
 
 - 管理员配置
-  新建一个名为config.yaml的文件，项目有模板例子名为congif.yaml.example在congig.yaml中写入如下信息： 
+
+  新建一个名为config.yaml的文件，项目有模板例子名为congif.yaml.example,在config.yaml中写入如下信息： 
 ```
   admin:
   - 12345678
