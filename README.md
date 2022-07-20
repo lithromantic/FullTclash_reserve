@@ -93,8 +93,7 @@ python .\login.py
   
   如果是在中国大陆地区使用，则程序需要代理才能连接上Telegram服务器。在congig.yaml中写入如下信息： 
 ```
-  proxyport:
-  - 7890
+  proxyport: 7890
 ```
   
 ## 开始启动
