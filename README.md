@@ -92,7 +92,7 @@ python .\login.py
 
 - 代理配置
   
-  如果是在中国大陆地区使用，则程序需要代理才能连接上Telegram服务器。在congig.yaml中写入如下信息： 
+  如果是在中国大陆地区使用，则程序需要代理才能连接上Telegram服务器。在config.yaml中写入如下信息： 
 ```
   proxyport: 7890
 ```
