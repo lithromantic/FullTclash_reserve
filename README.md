@@ -83,19 +83,19 @@ python .\login.py
 
 - 管理员配置
   新建一个名为config.yaml的文件，项目有模板例子名为congif.yaml.example在congig.yaml中写入如下信息： 
-  ###########
+```
   admin:
   - 12345678
-  ###########
+```
   
 
 - 代理配置
   
   如果是在中国大陆地区使用，则程序需要代理才能连接上Telegram服务器。在congig.yaml中写入如下信息： 
-  ###########
+```
   proxyport:
   - 7890
-  ###########
+```
   
 ## 开始启动
 
