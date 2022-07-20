@@ -5,7 +5,7 @@ import requests
 
 
 # 切换节点
-def switchProxy_old(proxyName, proxyGroup, clashHost: str = "127.0.0.1", clashPort: int = 9090):
+def switchProxy_old(proxyName, proxyGroup, clashHost: str = "127.0.0.1", clashPort: int = 1123):
     """
     切换clash核心中的代理节点，此版本为requests库实现
     :param proxyName: 想要切换代理节点的名称

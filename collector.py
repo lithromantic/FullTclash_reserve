@@ -34,7 +34,7 @@ class SubCollector(BaseCollector):
     def __init__(self, suburl: str):
         super().__init__()
         self.text = None
-        self._headers = {'User-Agent': 'clash'}
+        self._headers = {'User-Agent': 'clash'}  # 这个请求头是获取流量信息的关键
         self.url = suburl
 
     async def start(self, proxy=None):
@@ -72,28 +72,9 @@ class SubCollector(BaseCollector):
                                     break
                                 fd.write(chunk)
                             return True
-        except ClientResponseError as c:
+        except ClientConnectorError as c:
             print(c)
             return False
-
-    async def getSubConfig_old(self, proxy=proxies):
-        """
-        获取订阅配置文件
-        :param proxy:
-        :return: 响应数据
-        """
-        try:
-            async with async_timeout.timeout(20):
-                async with aiohttp.ClientSession(headers=self._headers) as session:
-                    async with session.get(self.url, proxy=proxy) as response:
-                        self.text = await response.text()
-                        return self.text
-        except Exception as e:
-            print(e)
-            return "ERROR: 无法获取到订阅文件"
-
-    def saveConfig(self):
-        pass
 
 
 class Collector:
@@ -119,7 +100,7 @@ class Collector:
         """
         try:
             s1 = time.time()
-            a1 = await session.get("http://www.gstatic.com/generate_204", proxy="http://127.0.0.1:7890", timeout=10)
+            a1 = await session.get("http://www.gstatic.com/generate_204", proxy=proxy, timeout=10)
             # a2 = await session.get("https://www.google.com/", proxy="http://127.0.0.1:1111", timeout=10)
             # a3 = await session.get("https://www.google.com/", proxy="http://127.0.0.1:1111", timeout=10)
             # if a1.status == 200 and a2.status == 200 and a3.status == 200:
@@ -264,7 +245,6 @@ class Collector:
                     print("任务已完成")
                     await session.close()
                 else:
-                    print("任务未完成")
                     await asyncio.sleep(1)
                     await session.close()
             return self.info
@@ -278,3 +258,5 @@ class Collector:
             self.info['ne_status_code2'] = None
             self.info['youtube_status_code'] = None
             return self.info
+
+

@@ -9,10 +9,11 @@ import cleaner
 import export
 import proxys
 
-# 你需要一个clash核心程序，此为clash核心运行路径
+# 你需要一个clash核心程序，此为clash核心运行路径。Windows需要加后缀名.exe
 clash_path = "./clash-windows-amd64.exe"
 sub_path = "./sub.yaml"
 progress = 0  # 整个测试进程的进度
+port = 1122
 
 
 async def testurl(client, message, back_message):
@@ -30,8 +31,9 @@ async def testurl(client, message, back_message):
 
         info = {}  # Netflix Youtube 等等
         # 获取订阅地址
-        url = pattern.findall(text)[0]  # 列表中第一个项为订阅地址
-        if len(url) < 5:
+        try:
+            url = pattern.findall(text)[0]  # 列表中第一个项为订阅地址
+        except IndexError:
             await back_message.edit_text("⚠️无效的订阅地址，请检查后重试。")
             return
         print(url)
@@ -47,12 +49,16 @@ async def testurl(client, message, back_message):
             )
             return
 
-        # 启动订阅清洗机
+        # 启动订阅清洗
         with open(sub_path, "r", encoding="UTF-8") as fp:
             cl = cleaner.ClashCleaner(fp)
             nodename = cl.nodesName()
             nodetype = cl.nodesType()
+            cl.changeClashPort(port=port)
+            cl.changeClashEC()
+            # cl.changeClashMode()
             proxy_group = cl.proxyGroupName()
+        cl.save()
         # 启动clash进程
         command = fr"{clash_path} -f {sub_path}"
         subp = subprocess.Popen(command.split(), encoding="utf-8")
@@ -66,7 +72,7 @@ async def testurl(client, message, back_message):
             proxys.switchProxy_old(proxyName=n, proxyGroup=proxy_group)
             progress += 1
             cl = collector.Collector()
-            n1 = await cl.start(proxy="http://127.0.0.1:7890")
+            n1 = await cl.start(proxy="http://127.0.0.1:{}".format(port))
             clean = cleaner.ReCleaner(n1)
             gp = clean.getGping()
             if gp is None:

@@ -4,7 +4,7 @@ import time
 # from pilmoji.source import MicrosoftEmojiSource
 
 
-_version_ = "2.1.1(stable)"  # 版本号
+_version_ = "2.2.0(Beta)"  # 版本号
 
 
 # info 变量里面包含测好的解锁信息
@@ -124,7 +124,6 @@ def exportImage(proxyname: list, proxytype: list, info: dict):
 
 
 def exportImage_old(proxyname: list, proxytype: list, info: dict):
-    save_path = "./results"
     try:
         netflixinfo = info['netflix']
         youtubeinfo = info['youtube']
